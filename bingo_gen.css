@@ -1,0 +1,173 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/**********************************
+ *	Début de la feuille de style  *
+ **********************************/
+body {
+    --textColor: #000;
+    --bgColor: #fff;
+
+    background-color: var(--bgColor);
+    color: var(--textColor);
+
+    transition-property: background-color, color;
+    transition-timing-function: ease-in-out;
+    transition-duration: 0.5s;
+}
+
+body.dark {
+    --textColor: #fff;
+    --bgColor: #000;
+}
+
+h1, h2 {
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 25px;
+}
+
+h2 {
+    font-size: 18px;
+}
+
+p {
+    margin-bottom: 5px;
+}
+
+strong {
+    font-weight: bold;
+}
+
+header {
+    width: 80%;
+
+    text-align: center;
+
+    margin: auto;
+}
+
+header p {
+    font-size: 8px;
+}
+
+section, main, footer {
+    border: 1px solid var(--textColor);
+    background-color: var(--bgColor);
+    color: var(--textColor);
+
+    border-radius: 20px;
+
+    padding: 10px;
+
+    width: 80%;
+
+    margin: auto;
+
+    margin-top: 20px;
+
+    transition-property: inherit;
+    transition-timing-function: inherit;
+    transition-duration: inherit;
+}
+
+aside {
+    border: 1px solid var(--textColor);
+    background-color: var(--bgColor);
+    color: var(--textColor);
+
+    border-radius: 20px;
+
+    padding: 10px;
+
+    width: 20%;
+    height: 40%;
+    overflow-y: scroll;
+
+    position: fixed;
+
+    right: 12%;
+    top: 10%;
+
+    transition-property: inherit;
+    transition-timing-function: inherit;
+    transition-duration: inherit;
+}
+
+footer {
+    height: 200px;
+}
+
+main ul {
+    height: 200px;
+
+    overflow-y: scroll;
+}
+
+p#output {
+    height: 80%;
+    overflow-y: scroll;
+}
+
+
+button {
+    cursor: pointer;
+}
+
+button.delete {
+	background: none;
+	border: none;
+}
+
+button.delete:before {
+	content: '\2716';
+	color: red;
+}

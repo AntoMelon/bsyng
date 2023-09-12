@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <title>Bingosync JSON generator</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="bingo_gen.css">
+    <link rel="icon" href="index.png">
+    <script src="bingo_gen.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1><a href="https://bingosync.com" target="_blank">Bingosync</a> custom JSON generator</h1>
+        <p>made by AntoMelon</p>
+    </header>
+
+    <section>
+        <h2>Game Selector</h2>
+        <p>Selected game: <select id="games" title="This is used to store objectives from each game separetely"><option value="none">Unselected</option></select> <button id="btnLoadObjectives">Load objectives</button> <button id="btnRemoveGame">Remove game</button></p>
+        <p>Add game: <input type="text" id="fieldAddGame"> <button id="btnAddGame">Add</button></p>
+    </section>
+
+    <aside>
+        <h2>Special codes:</h2>
+        <p>Use <strong>%random(a,b)%</strong> to get a random integer in [a,b]</p>
+    </aside>
+
+    <main>
+        <h2>Objectives (currently <strong id="objNumber">0</strong>) <button id="btnGenerate">Generate JSON</button></h2>
+        <p>Add objective: <input type="text" id="fieldAddObjective"> <button id="btnAddObjective">Add objective</button></p>
+        <ul id="objectives">
+        </ul>
+    </main>
+
+    <footer>
+        <h2>Output</h2>
+        <p id="output"></p>
+        <button id="btnCopy">Copy to clipboard</button>
+    </footer>
+</body>
+
+</html>
