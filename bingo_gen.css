@@ -51,8 +51,17 @@ table {
  *	Début de la feuille de style  *
  **********************************/
 body {
-    --textColor: #000;
-    --bgColor: #fff;
+    --textColor: #f3f3f3;
+    --bgColor: #3f3f3f;
+
+    --bgDarker: #2f2f2f;
+
+    --header-color-lighter: #e9a60a;
+    --header-color: #d39609;
+    --header-color-darker: #b9850e;
+
+    --row-color-odd: #4f4f4f;
+    --row-color-even: #444444;
 
     background-color: var(--bgColor);
     color: var(--textColor);
@@ -60,11 +69,16 @@ body {
     transition-property: background-color, color;
     transition-timing-function: ease-in-out;
     transition-duration: 0.5s;
+
+    position: absolute;
+    width: 100%;
+
+    font-family: 'Roboto';
 }
 
 body.dark {
-    --textColor: #fff;
-    --bgColor: #000;
+    --textColor: var(--bgColor);
+    --bgColor: var(--textColor);
 }
 
 h1, h2 {
@@ -72,11 +86,13 @@ h1, h2 {
 }
 
 h1 {
-    font-size: 25px;
+    font-size: 30px;
 }
 
 h2 {
-    font-size: 18px;
+    font-size: 20px;
+    
+    margin-bottom: 10px;
 }
 
 p {
@@ -87,8 +103,52 @@ strong {
     font-weight: bold;
 }
 
+button, select {
+    background-color: var(--header-color);
+    color: var(--textColor);
+
+    border-top: 2px solid var(--header-color-lighter);
+    border-right: 2px solid var(--header-color-darker);
+    border-bottom: 2px solid var(--header-color-darker);
+    border-left: 2px solid var(--header-color-lighter);
+
+    padding: 3px;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+}
+
+button.delete {
+	background: none;
+	border: none;
+}
+
+button.delete:before {
+    font-size: 18px;
+	content: '\2716';
+	color: red;
+}
+
+input[type="text"] {
+    background-color: var(--bgDarker);
+    color: var(--textColor);
+
+    border-top: 1px solid var(--row-color-even);
+    border-right: 1px solid var(--row-color-odd);
+    border-bottom: 1px solid var(--row-color-odd);
+    border-left: 1px solid var(--row-color-even);
+
+    padding: 3px;
+}
+
 header {
-    width: 80%;
+    height: 10%;
+    width: 100%;
+
+    background-color: var(--header-color);
+
+    border-bottom: 5px solid var(--header-color-darker);
 
     text-align: center;
 
@@ -99,16 +159,11 @@ header p {
     font-size: 8px;
 }
 
-section, main, footer {
-    border: 1px solid var(--textColor);
+#game_selector, main, footer {
     background-color: var(--bgColor);
     color: var(--textColor);
 
-    border-radius: 20px;
-
     padding: 10px;
-
-    width: 80%;
 
     margin: auto;
 
@@ -119,55 +174,95 @@ section, main, footer {
     transition-duration: inherit;
 }
 
+#objectives_section{
+    width: 70%;
+
+    left: 0px;
+}
+
+main {
+    display: flex;
+}
+
 aside {
     border: 1px solid var(--textColor);
-    background-color: var(--bgColor);
+    background-color: var(--row-color-even);
     color: var(--textColor);
 
-    border-radius: 20px;
-
+    margin-left: 30px;
     padding: 10px;
 
     width: 20%;
     height: 40%;
-    overflow-y: scroll;
 
-    position: fixed;
-
-    right: 12%;
-    top: 10%;
+    right: 0px;
 
     transition-property: inherit;
     transition-timing-function: inherit;
     transition-duration: inherit;
 }
 
+aside p {
+    padding-bottom: 10px;
+}
+
 footer {
     height: 200px;
 }
 
-main ul {
+/*--------Objectives table--------*/
+
+main table {
     height: 200px;
+    width: 100%;
+    left: 10%;
 
     overflow-y: scroll;
+
+    border-top: 1px solid var(--textColor);
+    border-bottom: 1px solid var(--textColor);
 }
 
-p#output {
-    height: 80%;
+tr {
+    height: 40px;
+}
+
+td {
+    border-left: 1px solid var(--textColor);
+    border-right: 1px solid var(--textColor);
+
+    vertical-align: middle;
+}
+
+td:first-child {
+    width: 50px;
+
+    text-align: center;
+    vertical-align: middle;
+}
+
+td:nth-child(2) {
+    padding-left: 20px;
+}
+
+tr:nth-child(odd) {
+    background-color: var(--row-color-odd);
+}
+
+tr:nth-child(even) {
+    background-color: var(--row-color-even);
+}
+
+/*--------Footer--------*/
+
+footer div {
+    background-color: var(--row-color-odd);
+    border: 1px solid var(--textColor);
+
+    height: 50%;
+
+    margin: 10px 0px;
+    padding: 10px;
+
     overflow-y: scroll;
-}
-
-
-button {
-    cursor: pointer;
-}
-
-button.delete {
-	background: none;
-	border: none;
-}
-
-button.delete:before {
-	content: '\2716';
-	color: red;
 }

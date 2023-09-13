@@ -1,6 +1,6 @@
 const KEY = "bingo_gen";
 const DARK_KEY = "darkMode";
-const randomRegExp = /%random\([0-9]+,\s*[0-9]+\)%/;
+const randomRegExp = /%random\(\s*[0-9]+\s*,\s*[0-9]+\s*\)%/;
 
 function randRange(a,b) {
     return Math.floor(Math.random()*(b-a+1))+a;
@@ -118,12 +118,14 @@ document.addEventListener("DOMContentLoaded", function() {
         objectives.innerHTML = "";
 
         for (let objective of memory[name]) {
-            objectives.innerHTML += "<li><button class=\"delete\"></button>"+objective+"</li>"; 
+            objectives.innerHTML += "<tr><td><button class=\"delete\"></button></td><td>"+objective+"</td></tr>"; 
         }
 
         updateObjectivesNumberWith(memory[name].length);
 
         loadCustomObjectivesButton();
+
+        clearOutput();
     }
 
     function generateJSON() {
@@ -176,28 +178,35 @@ document.addEventListener("DOMContentLoaded", function() {
         target.innerHTML = "";
         target.setAttribute('readonly',true);
         target.innerHTML += output;
+
+        document.getElementById("output").scrollIntoView({behavior: "smooth"});
+    }
+
+    function clearOutput() {
+        let target = document.getElementById("output");
+        target.innerHTML = "";
     }
 
 
     function loadCustomObjectivesButton() {
         let currGame = document.getElementById("games").value.toLowerCase();
-        let aside = document.getElementsByTagName("aside")[0];
-        aside.innerHTML = "";
+        let codesDiv = document.getElementById("game_codes");
+        codesDiv.innerHTML = "";
 
         if (currGame === "hollow knight" || currGame === "hollow_knight" || currGame === "hk") {
-            aside.innerHTML += "<h2>Detected game: Hollow Knight</h2>";
+            codesDiv.innerHTML += "<h2>Detected game: Hollow Knight</h2>";
 
-            aside.innerHTML += "<p>Use <strong>%enemy%</strong> for a random enemy</p>";
-            aside.innerHTML += "<p>Use <strong>%charm%</strong> for a random charm</p>";
+            codesDiv.innerHTML += "<p>Use <strong>%enemy%</strong> for a random enemy</p>";
+            codesDiv.innerHTML += "<p>Use <strong>%charm%</strong> for a random charm</p>";
 
         } else if (currGame === "minecraft" || currGame === "mc") { 
-            aside.innerHTML += "<h2>Detected game: Minecraft</h2>";
+            codesDiv.innerHTML += "<h2>Detected game: Minecraft</h2>";
 
-            aside.innerHTML += "<p>Use <strong>%mob%</strong> for a random mob</p>";
-            aside.innerHTML += "<p>Use <strong>%hostile%</strong> for a random hostile mob</p>";
-            aside.innerHTML += "<p>Use <strong>%biome%</strong> for a random biome (WIP)</p>";
+            codesDiv.innerHTML += "<p>Use <strong>%mob%</strong> for a random mob</p>";
+            codesDiv.innerHTML += "<p>Use <strong>%hostile%</strong> for a random hostile mob</p>";
+            codesDiv.innerHTML += "<p>Use <strong>%biome%</strong> for a random biome (WIP)</p>";
         } else {
-            aside.innerHTML += "<p>No special codes implemented for this game</p>";
+            codesDiv.innerHTML += "<p>No special codes implemented for this game</p>";
         }
     }
 
@@ -298,10 +307,12 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
 
-    let ul = document.querySelector("ul");
-    ul.addEventListener("click",function(e) {
+    let objectivesTable = document.querySelector("table");
+    objectivesTable.addEventListener("click",function(e) {
         if (e.target.tagName == "BUTTON") {
-            let objective = e.target.parentElement.innerHTML;
+
+            // Access objective text from the button: button UP td[0] UP td DOWN td[1] DOWN text
+            let objective = e.target.parentElement.parentElement.children[1].innerHTML;
             objective = objective.replace('<button class=\"delete\"></button>','');
 
 

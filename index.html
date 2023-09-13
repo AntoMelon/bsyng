@@ -6,6 +6,11 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="bingo_gen.css">
     <link rel="icon" href="index.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Roboto&display=swap" rel="stylesheet">
+
     <script src="bingo_gen.js"></script>
 </head>
 
@@ -14,28 +19,36 @@
         <h1><a href="https://bingosync.com" target="_blank">Bingosync</a> custom JSON generator</h1>
         <p>made by AntoMelon</p>
     </header>
-
-    <section>
+    
+    <section id="game_selector">
         <h2>Game Selector</h2>
         <p>Selected game: <select id="games" title="This is used to store objectives from each game separetely"><option value="none">Unselected</option></select> <button id="btnLoadObjectives">Load objectives</button> <button id="btnRemoveGame">Remove game</button></p>
-        <p>Add game: <input type="text" id="fieldAddGame"> <button id="btnAddGame">Add</button></p>
+        <p>Game to add: <input type="text" id="fieldAddGame"> <button id="btnAddGame">Add new game</button></p>
     </section>
 
-    <aside>
-        <h2>Special codes:</h2>
-        <p>Use <strong>%random(a,b)%</strong> to get a random integer in [a,b]</p>
-    </aside>
+    
 
     <main>
-        <h2>Objectives (currently <strong id="objNumber">0</strong>) <button id="btnGenerate">Generate JSON</button></h2>
-        <p>Add objective: <input type="text" id="fieldAddObjective"> <button id="btnAddObjective">Add objective</button></p>
-        <ul id="objectives">
-        </ul>
+        <section id="objectives_section">
+            <h2>Objectives (currently <strong id="objNumber">0</strong>) <button id="btnGenerate">Generate JSON</button></h2>
+            <p>Objective to add: <input type="text" id="fieldAddObjective"> <button id="btnAddObjective">Add objective</button></p>
+            <table>
+                <tbody id="objectives"></tbody>
+            </table>
+        </section>
+
+        <aside>
+            <h2>Special codes:</h2>
+            <p>Use <strong>%random(a,b)%</strong> to get a random integer in [a,b]</p>
+            <div id="game_codes"></div>
+        </aside>
     </main>
 
     <footer>
         <h2>Output</h2>
-        <p id="output"></p>
+        <div>
+            <p id="output"></p>
+        </div>
         <button id="btnCopy">Copy to clipboard</button>
     </footer>
 </body>
