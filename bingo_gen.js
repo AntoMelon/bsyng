@@ -165,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function() {
         for (let i = 0; i < 25; ++i) {
             let id = Math.floor(Math.random()*copy.length);
 
-            let objective = subAccToGame(game,copy[id]);
+            let objective = codesSubstitution(copy[id]);
 
             output += "{\"name\": \""+objective+"\"}";
 
@@ -204,7 +204,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     foundGame = true;
                     fetch('./game_codes/'+gameId+'.json').then(response => response.json()).then(function (data) {
                         currentGameCodes = data;
-                        
+
                         codesDiv.innerHTML += "<h2>Detected game: "+ currentGameCodes["game_name"] +"</h2>";
                         for (const code of currentGameCodes["codes"]) {
                             codesDiv.innerHTML += "<p>Use <strong>"+code["pattern"]+"</strong> for "+code["text"]+"</p>";
@@ -516,22 +516,37 @@ document.addEventListener("DOMContentLoaded", function() {
         return res;
     }
 
-    function subAccToGame(game, string) {
-        let currGame = game.toLowerCase();
+    function randomInArray(array) {
+        return array[randRange(0,array.length-1)]
+    }
+
+    function gameCodesSubtitution(string) {
+        if (currentGameCodes == null) {
+            return;
+        }
+
+        for (code of currentGameCodes["codes"]) {
+            string.replaceAll(code["pattern"],randomInArray(code["values"]));
+        }
+    }
+
+    function codesSubstitution(string) {
+        //let currGame = game.toLowerCase();
         let currStr = string;
 
         while (randomRegExp.exec(currStr)) {
             currStr = interpretAndSubRandoms(currStr);
         }
         
+        gameCodesSubtitution(currStr);
 
-        if (currGame === "hollow knight" || currGame === "hollow_knight" || currGame === "hk") {
-            return hkSubstitution(currStr);
-        }
+        // if (currGame === "hollow knight" || currGame === "hollow_knight" || currGame === "hk") {
+        //     return hkSubstitution(currStr);
+        // }
 
-        if (currGame === "minecraft" || currGame === "mc") {
-            return mcSubstitution(currStr);
-        }
+        // if (currGame === "minecraft" || currGame === "mc") {
+        //     return mcSubstitution(currStr);
+        // }
 
         return currStr;
     }
