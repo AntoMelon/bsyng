@@ -517,7 +517,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function randomInArray(array) {
-        return array[randRange(0,array.length-1)]
+        var res = array[randRange(0,array.length-1)];
+        return res
     }
 
     function gameCodesSubtitution(string) {
@@ -526,8 +527,10 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         for (code of currentGameCodes["codes"]) {
-            string.replaceAll(code["pattern"],randomInArray(code["values"]));
+            string = string.replaceAll(code["pattern"],randomInArray(code["values"]));
         }
+
+        return string;
     }
 
     function codesSubstitution(string) {
@@ -538,7 +541,7 @@ document.addEventListener("DOMContentLoaded", function() {
             currStr = interpretAndSubRandoms(currStr);
         }
         
-        gameCodesSubtitution(currStr);
+        return gameCodesSubtitution(currStr);
 
         // if (currGame === "hollow knight" || currGame === "hollow_knight" || currGame === "hk") {
         //     return hkSubstitution(currStr);
@@ -548,7 +551,7 @@ document.addEventListener("DOMContentLoaded", function() {
         //     return mcSubstitution(currStr);
         // }
 
-        return currStr;
+        //return currStr;
     }
 
 });
