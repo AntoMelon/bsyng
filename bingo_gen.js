@@ -205,19 +205,19 @@ document.addEventListener("DOMContentLoaded", function() {
                     fetch('./game_codes/'+gameId+'.json').then(response => response.json()).then(function (data) {
                         currentGameCodes = data;
                         
-                        if (currentGameCodes == null) {
-                            codesDiv.innerHTML += "<p>No special codes implemented for this game</p>";
-                        } else {
-                            codesDiv.innerHTML += "<h2>Detected game: "+ currentGameCodes["game_name"] +"</h2>";
-                            for (const code of currentGameCodes["codes"]) {
-                                codesDiv.innerHTML += "<p>Use <strong>"+code["pattern"]+"</strong> for "+code["text"]+"</p>";
-                            }
+                        codesDiv.innerHTML += "<h2>Detected game: "+ currentGameCodes["game_name"] +"</h2>";
+                        for (const code of currentGameCodes["codes"]) {
+                            codesDiv.innerHTML += "<p>Use <strong>"+code["pattern"]+"</strong> for "+code["text"]+"</p>";
                         }
                      })
                 }
                 if (foundGame) break;
             }
             if (foundGame) break;
+        }
+
+        if (!foundGame) {
+            codesDiv.innerHTML += "<p>No special codes implemented for this game</p>";
         }
     }
 
