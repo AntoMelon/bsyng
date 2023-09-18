@@ -2,6 +2,39 @@ const KEY = "bingo_gen";
 const DARK_KEY = "darkMode";
 const randomRegExp = /%random\(\s*[0-9]+\s*,\s*[0-9]+\s*\)%/;
 
+const detectedGames = {"mc": ["minecraft", "mc"], "hk": ["hollow knight", "hk"]};
+
+var currentGameCodes = {
+    "game_name": "Minecraft (1.18)",
+    "codes": [
+        {
+            "pattern": "%mob%",
+            "text": "a random mob",
+            "values": ["Axolotl", "Bat", "Cat", "Chicken", "Cod", "Cow",
+            "Donkey", "Fox", "Glow Squid", "Horse", "Mooshroom", "Mule",
+            "Ocelot", "Parrot", "Pig", "Pufferfish", "Rabbit", "Salmon",
+            "Sheep", "Skeleton Horse", "Snow Golem", "Squid", "Strider", "Tropical Fish",
+            "Turtle", "Villager", "Wandering Trader", "Bee", "Cave Spider", "Dolphin",
+            "Enderman", "Goat", "Iron Golem", "Llama", "Panda", "Piglin",
+            "Polar Bear", "Spider", "Trader Llama", "Wolf", "Zombified Piglin", "Blaze",
+            "Chicken Jockey", "Creeper", "Drowned", "Elder Guardian", "Endermite", "Evoker",
+            "Ghast", "Guardian", "Hoglin", "Husk", "Magma Cube", "Phantom", "Piglin Brute",
+            "Pillager", "Ravager", "Shulker", "Silverfish", "Skeleton", "Skeleton Horseman",
+            "Slime", "Spider Jockey", "Stray", "Vex", "Vindicator", "Witch",
+            "Wither Skeleton", "Zoglin", "Zombie", "Zombie Villager", "Ender Dragon", "Wither"]
+        },
+        {
+            "pattern": "%hostile%",
+            "text": "a random hostile mob",
+            "values": ["Blaze", "Chicken Jockey", "Creeper", "Drowned", "Elder Guardian", "Endermite", "Evoker",
+            "Ghast", "Guardian", "Hoglin", "Husk", "Magma Cube", "Phantom", "Piglin Brute",
+            "Pillager", "Ravager", "Shulker", "Silverfish", "Skeleton", "Skeleton Horseman",
+            "Slime", "Spider Jockey", "Stray", "Vex", "Vindicator", "Witch",
+            "Wither Skeleton", "Zoglin", "Zombie", "Zombie Villager", "Ender Dragon", "Wither"]
+        }
+    ]
+};
+
 function randRange(a,b) {
     return Math.floor(Math.random()*(b-a+1))+a;
 }
@@ -193,20 +226,25 @@ document.addEventListener("DOMContentLoaded", function() {
         let codesDiv = document.getElementById("game_codes");
         codesDiv.innerHTML = "";
 
-        if (currGame === "hollow knight" || currGame === "hollow_knight" || currGame === "hk") {
-            codesDiv.innerHTML += "<h2>Detected game: Hollow Knight</h2>";
-
-            codesDiv.innerHTML += "<p>Use <strong>%enemy%</strong> for a random enemy</p>";
-            codesDiv.innerHTML += "<p>Use <strong>%charm%</strong> for a random charm</p>";
-
-        } else if (currGame === "minecraft" || currGame === "mc") { 
-            codesDiv.innerHTML += "<h2>Detected game: Minecraft</h2>";
-
-            codesDiv.innerHTML += "<p>Use <strong>%mob%</strong> for a random mob</p>";
-            codesDiv.innerHTML += "<p>Use <strong>%hostile%</strong> for a random hostile mob</p>";
-            codesDiv.innerHTML += "<p>Use <strong>%biome%</strong> for a random biome (WIP)</p>";
-        } else {
-            codesDiv.innerHTML += "<p>No special codes implemented for this game</p>";
+        let foundGame = false;
+        for (const gameId in detectedGames) {
+            for (const acceptedGameId of detectedGames[gameId]) {
+                if (currGame == acceptedGameId) {
+                    foundGame = true;
+                    fetch('./game_codes/'+gameId+'.json').then(response => response.json()).then(function (data) {
+                        currentGameCodes = data;
+                        
+                        if (currentGameCodes == null) {
+                            codesDiv.innerHTML += "<p>No special codes implemented for this game</p>";
+                        } else {
+                            codesDiv.innerHTML += "<h2>Detected game: "+ currentGameCodes["game_name"] +"</h2>";
+                            for (const code of currentGameCodes["codes"]) {
+                                codesDiv.innerHTML += "<p>Use <strong>"+code["pattern"]+"</strong> for "+code["text"]+"</p>";
+                            }
+                        }
+                     })
+                }
+            }
         }
     }
 

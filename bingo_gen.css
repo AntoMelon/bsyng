@@ -217,8 +217,6 @@ main table {
     width: 100%;
     left: 10%;
 
-    overflow-y: scroll;
-
     border-top: 1px solid var(--textColor);
     border-bottom: 1px solid var(--textColor);
 }
